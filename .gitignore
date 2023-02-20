@@ -1,0 +1,6 @@
+# 폴더
+data/
+output/
+
+# 확장자
+*.csv
