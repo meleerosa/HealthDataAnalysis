@@ -10,6 +10,7 @@ class Config(Singletone):
 
     Attributes:
         self.__config (dict): config.ini 파일을 불러와 dict 형식으로 저장
+        self.__config (dict): config.ini 파일을 불러와 dict 형식으로 저장
     """
 
     @property
