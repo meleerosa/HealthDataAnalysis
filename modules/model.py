@@ -19,6 +19,22 @@ from modules.utils.file_handler import chk_and_make_dir
 model_logger = logging.getLogger("model")
 
 class Model:
+    """
+    Model class XGBoost 모델을 만들고 훈련, 테스트 평가를 하는 클래스
+
+    Attributes:
+        _input_data (pandas.DataFrame): 전처리가 완료된 입력 데이터
+        _train_input (numpy.ndarray): 훈련을 위한 스케일링 처리된 입력 데이터
+        _train_target (numpy.ndarray): 훈련을 위한 스케일링 처리된 입력(target) 데이터
+        _test_input (numpy.ndarray): 테스트를 위한 스케일링 처리된 입력 데이터
+        _test_target (numpy.ndarray): 테스트를 위한 스케일링 처리된 입력(target) 데이터
+        _input_scaler (sklearn.preprocessing.RobustScaler): 입력 데이터를 스케일링하기 위한 scaler 객체
+        _target_scaler (sklearn.preprocessing.RobustScaler): 타겟 데이터를 스케일링하기 위한 scaler 객체
+        _model (xgboost.XGBRegressor): XGBoost 모델 객체
+        _config (dict): config 파라미터
+        _model_path (str): 모델을 세이브 할 디렉토리 경로
+
+    """
     _input_data: pd.DataFrame
     _train_input: np.ndarray
     _train_target: np.ndarray
@@ -32,9 +48,22 @@ class Model:
     
     @property
     def h_param(self):
+        """
+        하이퍼파라미터를 출력하는 getter 메소드
+
+        Returns:
+            dict: 하이퍼파라미터 값
+        """
         return self._h_param
 
     def __init__(self, preprocessed_data, h_param: Dict = None) -> None:
+        """모델 클래스의 생성자
+
+        Args:
+            preprocessed_data (pandas.DataFrame): 전처리된 입력 데이터
+            h_param (Dict): 하이퍼파라미터 값 (default: None).
+
+        """
         self._config = Config.instance().config
         self._model_logger = logging.getLogger("Model")
         self._preprocessed_data = preprocessed_data
@@ -46,6 +75,13 @@ class Model:
 
     @TryDecorator(logger= model_logger)
     def _split_data(self) -> None:
+        """
+        전처리된 데이터를 train 셋과 test 셋으로 분할하고 input data를 scaling
+
+        Raises:
+            Exception: 전처리 데이터가 빈 경우
+
+        """
         if self._preprocessed_data is None or self._preprocessed_data.empty:
             raise Exception("preprocessed data is Empty")
         

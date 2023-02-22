@@ -10,7 +10,7 @@ class DefaultLogger:
     """DefaultLogger class
 
     Attributes:
-
+        output_directory_path (str): 출력 결과물을 저장할 디렉토리 경로
     """
     def __init__(self) -> None:
         pass
@@ -36,10 +36,10 @@ class DefaultLogger:
         chk_and_make_dir(output_directory_path)
 
         stream_handler = logging.StreamHandler()
-        stream_handler.setFormatter(CustomFormatter())
+        stream_handler.setFormatter(CustomFormatter()) # CustomFormatter에서 로그를 출력한 것을 streamhandler에 설정
         file_handler = logging.FileHandler(log_file_name)
 
-        logging.basicConfig(
+        logging.basicConfig(                             # 로깅레벨, 출력 형식, 핸들러 설정
             level=logging.INFO,
             format="[%(levelname)s:%(name)s:%(asctime)s] %(message)s",
             datefmt="%Y/%m/%d %H:%M:%S",
@@ -49,7 +49,7 @@ class DefaultLogger:
         return logging.getLogger(logger_name)
 
     def rename_log_file(self):
-        """ 로그 이름 변경함수
+        """ 로그 파일 이름 변경함수
 
         Args:
             None

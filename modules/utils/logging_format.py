@@ -7,7 +7,10 @@ class CustomFormatter(logging.Formatter):
     상태에 따라 log를 기록할 방식 설정(글자색, 형식)
 
     Attributes:
-        None
+        __색상 (str): 색상으로 출력하기 위한 ANSI escape 코드를 저장하는 문자열 변수
+        __reset (str): 이전에 설정한 모든 ANSI escape 코드를 초기화 하는 문자열 변수
+        __log_format (str): 로그 형식 문자열을 저장하는 변수
+        __FORMATS (dict): 로그 레벨에 따라 로그 포맷을 지정
     """
     __grey = "\x1b[38;21m"
     __yellow = "\x1b[33;21m"

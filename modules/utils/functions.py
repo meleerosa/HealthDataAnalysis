@@ -6,8 +6,8 @@ from pathos.multiprocessing import ProcessingPool as Pool
 
 
 def parallelize_dataframe(func, df: pd.DataFrame) -> pd.DataFrame:
-    """데이터프레임을 분할해서 cpu 병렬처리
-    multi process
+    """cpu 병렬처리에 사용할 데이터프레임 분할
+        multi process
 
     Args:
         func ([type]): cpu 병렬처리에 사용할 함수
@@ -36,7 +36,7 @@ def parallelize_dataframe(func, df: pd.DataFrame) -> pd.DataFrame:
 
 def parallelize_dataframe_with_args(func, df: pd.DataFrame, *args) -> pd.DataFrame:
     """데이터프레임을 분할해서 cpu 병렬처리(func에 인자값이 필요한 경우)
-    multi process
+        multi process
 
     Args:
         func ([type]): cpu 병렬처리에 사용할 함수
